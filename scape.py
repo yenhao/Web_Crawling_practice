@@ -18,5 +18,14 @@ yelp_soup = BeautifulSoup(yelp_r.text, 'html.parser')
 
 #print(yelp_soup.prettify())
 
-for link in yelp_soup.findAll('a', {'class': 'biz-name'}):
-	print(link.text)
+businesses = yelp_soup.findAll('div', {'class': 'biz-listing-large'})
+
+for business in businesses:
+	titles = yelp_soup.findAll('a', {'class': 'biz-name'})
+	#for title in titles:
+	print(titles[0].text)
+	address = business.findAll('address')[0].text
+	print(address)
+	phone = business.findAll('span', {'class':'biz-phone'})[0].text
+	print(phone)
+	print()
