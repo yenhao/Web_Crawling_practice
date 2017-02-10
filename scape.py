@@ -23,9 +23,17 @@ businesses = yelp_soup.findAll('div', {'class': 'biz-listing-large'})
 for business in businesses:
 	titles = yelp_soup.findAll('a', {'class': 'biz-name'})
 	#for title in titles:
-	print(titles[0].text)
-	address = business.findAll('address')[0].text
-	print(address)
+	print(titles[0].text.strip(' \n\t\r'))
+	
+	#This have multi line
+	address = business.findAll('address')[0].contents
+	total_address = ''
+	for line in address:
+		if "br" in str(line):
+			total_address += line.getText().strip(' \n\t\r')
+		else:
+			total_address += line.strip(' \n\t\r')
+	print(total_address)
 	phone = business.findAll('span', {'class':'biz-phone'})[0].text
-	print(phone)
+	print(phone.strip(' \n\t\r'))
 	print()
